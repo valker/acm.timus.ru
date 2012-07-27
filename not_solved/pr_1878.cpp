@@ -1,3 +1,4 @@
+// WA7
 #include <iostream>
 #include <vector>
 #include <algorithm>

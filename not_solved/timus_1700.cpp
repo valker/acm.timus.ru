@@ -11,45 +11,35 @@
 
 using namespace std;
 
+// storage that allows to contains unique 
 struct UNIQUE_STRING_STORAGE {
-	vector<string> storage_;
-	vector<int> indexes_;
 
-	struct Pred {
-		Pred(const vector<string>& s, const string& v) : s_(s),v_(v) {}
-		const vector<string>& s_;
-		const string& v_;
+	map<string, int> storage_;
 
-		const string& get(int index) const {
-			if( index == -1) return v_;
-			return s_[index];
-		}
+	int add(const string& value) {
 
-		bool operator()(int left, int right) const {
-			return get(left) < get(right);
-		}
-	};
-
-	int push(const string& value) {
-		vector<int>::iterator it = lower_bound(indexes_.begin(), indexes_.end(), -1, Pred(storage_, value));
-		if(it != indexes_.end()) {
-			if(storage_[*it] == value) {
-				return *it;
-			} else {
-			}
+		map<string,int>::iterator it = storage_.find(value);
+		if(it == storage_.end()) {
+			// add new item
+			const int index = storage_.size();
+			storage_.insert(make_pair(value, index));
+			return index;
+		} else {
+			// return existing
+			return it->second;
 		}
 	}
 
 	int find(const string& value ) {
-		vector<int>::iterator it = lower_bound(indexes_.begin(), indexes_.end(), -1, Pred(storage_, value));
-		return *it;
+		return storage_[value];
 	}
 
+	// output those items which indexes are in vectir
 	void output(ostream& out, const vector<int>& indexes) {
-		for(int i = 0; i < indexes.size(); ++i) {
-			if(i != 0) out << ' ';
-			out << storage_[indexes[i]];
-		}
+		//for(size_t i = 0; i < indexes.size(); ++i) {
+		//	if(i != 0) out << ' ';
+		//	out << storage_[indexes[i]];
+		//}
 	}
 };
 
@@ -83,7 +73,7 @@ int main()
 		size_t delim = s.find(':');
 		string ob = s.substr(0, delim - 0);
 
-		int ob_index = object_storage.push(ob);
+		int ob_index = object_storage.add(ob);
 
 		size_t next = s.find_first_not_of(':', delim);
 		while(true) {
@@ -91,7 +81,7 @@ int main()
 			size_t delim = s.find(' ', next);
 			string attribute = s.substr(next, delim - next);
 
-			int attribute_index = attrib_storage.push(attribute);
+			int attribute_index = attrib_storage.add(attribute);
 
 			relation_storage.push(ob_index, attribute_index);
 
@@ -107,7 +97,7 @@ int main()
 		size_t from = 0;
 		bool first = true;
 		vector<int> attributes;
-		while(from != string.npos && (!attributes.empty() || first)) {
+		while(from != string::npos && (!attributes.empty() || first)) {
 			const size_t space = s.find(' ', from);
 			const string x = s.substr(from, (space == string::npos) ? space : (space - from));
 			const int obj_index = object_storage.find(x);

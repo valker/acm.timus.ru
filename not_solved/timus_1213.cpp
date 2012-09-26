@@ -24,26 +24,43 @@ private:
 };
 
 struct Graph {
+	void new_edge(pair<int,int> e) {
+		//TODO: should be implemented
+	}
+	int get_mst_size() { 
+		//TODO: should be implemented
+		return 0; }
 };
+
+pair<int,int> read_edge(istream& in, Names& names)
+{
+	string s;
+	getline(cin, s);
+	if(s == "#") return make_pair(-1,-1);
+	size_t minus = s.find('-');
+	string left = s.substr(0, minus);
+	string right = s.substr(minus + 1);
+	const int left_id = names.GetId(left);
+	const int right_id = names.GetId(right);
+	return make_pair(left_id, right_id);
+}
 
 int main()
 {
 	string gateway;
 	getline(cin, gateway);
-	vector<string> cells;
 	Names names;
 	Graph graph;
 	while(true) {
-		string s;
-		getline(cin, s);
-		if(s == "#") break;
-		// split string into pair
-		size_t minus = s.find('-');
-		string left = s.substr(0, minus);
-		string right = s.substr(minus + 1);
-		names.GetId(left);
-		names.GetId(right);
+		const pair<int,int> e = read_edge(cin, names);
+		if(e.first == -1) break;
+		graph.new_edge(e);
 	}
+	
+	const int mst_size = graph.get_mst_size();
+
+	cout << mst_size << endl;
+
 	return 0;
 }
 

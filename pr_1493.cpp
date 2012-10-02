@@ -1,5 +1,5 @@
 #include <iostream>
-
+//ac
 using namespace std;
 
 int get_last_num(int n)

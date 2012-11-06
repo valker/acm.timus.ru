@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int solve(int n)
+{
+	return 0;
+}
+
+void test()
+{
+	assert(solve(2) == 0);
+}
+
+void main2()
+{
+	int n;
+	cin >> n;
+	int result = solve(n);
+	cout << result << endl;
+}
+
+int main()
+{
+#if 1
+	test();
+#else
+	main2();
+#endif
+}
+

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace timus_2111
 {
@@ -20,12 +17,12 @@ namespace timus_2111
             var s = input.ReadLine();
             var p = s
                 .Split(' ')
-                .Select(s1 => int.Parse(s1))
+                .Select(s1 => long.Parse(s1))
                 .OrderBy(i => i)
                 .ToArray();
 
-            int weight = 0;
-            int nalog = 0;
+            long weight = 0;
+            long nalog = 0;
             for (int i = 0; i < p.Length; ++i)
             {
                 nalog += weight * p[i];
